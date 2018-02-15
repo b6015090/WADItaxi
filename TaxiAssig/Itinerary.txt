@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
+<html ng-app="itsApp">
+
+<body ng-controller="itineraryController">
+    <h1>My itinerary page</h1>
+    <div ng-show="!isEditing">
+        <button ng-click="beginEditing()">Add new itinerary</button>
+        <form>
+            <p>Search for itineraries <input type="text" ng-model="search"></p>
+        </form>
+        <p>
+            Here are your current itineraries
+
+            <table>
+                <tr>
+                    <th>Itinerary Name</th>
+                    <th>Destination</th>
+                    <th>Purpose</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                </tr>
+                <tr ng-repeat="itinerary in itineraries | filter:search">
+                    <td>{{itinerary.itiName}}</td>
+                    <td>{{itinerary.destination}}</td>
+                    <td>{{itinerary.purpose}}</td>
+                    <td>{{itinerary.startDate | date}}</td>
+                    <td>{{itinerary.endDate | date}}</td>
+                    <td><a href="" ng-click="remove(itinerary)">remove</a></td>
+                </tr>
+            </table>
+        </p>
+    </div>
+    <div ng-show="isEditing">
+        <h2>Add Itinerary</h2>
+        <label>Itinerary Name: <input ng-model="itiName" /></label><br />
+        <label>Destination: <input ng-model="destination" /></label><br />
+        <label>Purpose: <input ng-model="purpose" /></label><br />
+        <label>Start Date: <input ng-model="startDate" /></label><br />
+        <label>End Date: <input ng-model="endDate" /></label><br />
+        <button ng-click="add()">Add</button>
+        <button ng-click="cancelAddition()">Cancel</button>
+    </div>
+
+
+    <script src="app/myApp.js"></script>
+    <script src="app/itinerary/itineraryModule.js"></script>
+    <script src="app/itinerary/itineraryController.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+####### Controller
+angular.module("itsItinerary").controller("itineraryController", function ($scope,$http)
+{
+    //Define Functions
+    $scope.itineraries = []
+
+
+    $scope.init = function () {
+        $scope.itineraries = [
+            {
+                id: 1,
+                itiName: "October Business Development trip 2015",
+                destination: "Germany",
+                purpose: "Work",
+                startDate: new Date("2015-10-03"),
+                endDate: new Date("2015-10-10")
+            },
+            {
+                id: 2,
+                itiName: "November Client-site visit 2015",
+                destination: "America",
+                purpose: "Work",
+                startDate: new Date("2015-11-05"),
+                endDate: new Date("2015-11-08")
+            },
+            {
+                id: 3,
+                itiName: "January Scoping visit 2016",
+                destination: "China",
+                purpose: "Work",
+                startDate: new Date("2016-01-15"),
+                endDate: new Date("2016-01-23")
+            },
+            {
+                id: 4,
+                itiName: "May Recruitment visit 2016",
+                destination: "India",
+                purpose: "Work",
+                startDate: new Date("2016-05-21"),
+                endDate: new Date("2016-05-30")
+            },
+            {
+                id: 5,
+                itiName: "July Conversion visit 2016",
+                destination: "Germany",
+                purpose: "Work",
+                startDate: new Date("2016-07-08"),
+                endDate: new Date("2015-07-15")
+            }
+        ];
+    };
+
+    $scope.add = function () {
+        var itineraryDetails = {
+            id: $scope.itineraries.length,
+            itiName: $scope.itineraryName,
+            destination: $scope.itineraryDestination,
+            purpose: $scope.itineraryPurpose,
+            startDate: new Date($scope.itineraryStartDate),
+            endDate: new Date($scope.itineraryEndDate)
+        };
+        $scope.itineraries.push($scope.itineraryDetails);
+        $scope.isEditing = false;
+    }; 
+
+
+    $scope.beginEditing = function () {
+        $scope.isEditing = true;
+    };
+
+    $scope.cancelAddition = function () {
+        $scope.isEditing = false;
+        $scope.itineraryName = "";
+    };
+
+    $scope.remove = function (emma) {
+        var itineraryToRemove = $scope.itineraries.indexOf(emma);
+        $scope.itineraries.splice(itineraryToRemove, 1);
+    }
+
+    //Function Invocation
+    $scope.init();
+});
+
