@@ -5,19 +5,39 @@
 </head>
 <body>
     <h1>Login:</h1>
-    <p>
-        <table>
-            <tr>
-                <td>Username:</td>
-                <td><input ng-model="Username" /></td>
-            </tr>
-            <tr>
-                <td>Password:</td>
-                <td><input ng-model="Password" /></td>
-            </tr>
-        </table>
-    </p>
-    
+    <div ng-show="isEditing">
+        <p>
+            <table>
+                <tr>
+                    <td>Username:</td>
+                    <td><input ng-model="Username" /></td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><input ng-model="Password" /></td>
+                </tr>
+            </table>
+
+        </p>
+    </div>
+    <div ng-show="isEditing">
+        <h4>Current Taxi's In Use:</h4>
+        <p>
+            <table>
+                <tr>
+                    <th>Current Passenger</th>
+                    <th>Drop Off Location</th>
+                    <th>ID</th>
+                    <th>Passenger Name</th>
+                    <th>Pickup Location</th>
+                    <th>Vehicle ID</th>
+                </tr>
+                <tr>
+                    <td>{{itinerary.C}}</td>
+                </tr>
+            </table>
+        </p>
+    </div>
     
 <script src="app/myApp.js"></script>
 <script src="app/Taxi/homepageModule.js"></script>

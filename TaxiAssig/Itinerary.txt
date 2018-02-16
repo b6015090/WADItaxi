@@ -51,11 +51,19 @@
 </html>
 
 
+#########################################################################
+<Booking>
+<CurrentPassenger>1</CurrentPassenger>
+<DropOffLocation>Sheffield Train Station</DropOffLocation>
+<Id>559</Id>
+<PassengerName>Jane</PassengerName>
+<PickupLocation>Peniston</PickupLocation>
+<VehicleId>587</VehicleId>
+</Booking>
 
 
 
-
-####### Controller
+######################################### Controller
 angular.module("itsItinerary").controller("itineraryController", function ($scope,$http)
 {
     //Define Functions
